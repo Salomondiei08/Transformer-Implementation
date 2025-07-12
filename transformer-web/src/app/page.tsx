@@ -817,16 +817,32 @@ export default function Home() {
               animation: 'pulse 2s ease-in-out infinite'
             }}>❤️</span>
             <span>by</span>
-            <span style={{
-              color: 'white',
-              fontWeight: '600',
-              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
+            <a 
+              href="https://theguy.reinvent-labs.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: 'white',
+                fontWeight: '600',
+                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.filter = 'brightness(1.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.filter = 'brightness(1)';
+              }}
+            >
               Salomon Diei
-            </span>
+            </a>
           </div>
         </div>
       </div>
