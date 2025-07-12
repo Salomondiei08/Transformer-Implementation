@@ -25,16 +25,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`} style={{ backgroundColor: 'black', color: 'white' }}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`} style={{ margin: 0, padding: 0 }}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <div style={{ minHeight: '100vh', backgroundColor: 'black' }}>
-            {children}
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
