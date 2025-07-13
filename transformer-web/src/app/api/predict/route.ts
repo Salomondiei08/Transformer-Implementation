@@ -1,69 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000';
+
 export async function POST(request: NextRequest) {
     try {
-        const { task, sequence } = await request.json();
+        const body = await request.json();
+        const { input, task } = body;
 
-        // Validate input
-        if (!task || !sequence) {
-            return NextResponse.json(
-                { error: 'Missing task or sequence' },
-                { status: 400 }
-            );
+        if (!input) {
+            return NextResponse.json({ error: 'Input is required' }, { status: 400 });
         }
 
-        const numbers = sequence.trim().split(/\s+/).map(Number);
-
-        if (numbers.length !== 8) {
-            return NextResponse.json(
-                { error: 'Sequence must contain exactly 8 numbers' },
-                { status: 400 }
-            );
-        }
-
-        if (!numbers.every(num => num >= 1 && num <= 9)) {
-            return NextResponse.json(
-                { error: 'Numbers must be between 1 and 9' },
-                { status: 400 }
-            );
-        }
-
-        // For now, simulate the prediction
-        // In a real implementation, this would call your Python backend
-        let result: number[] = [];
-
-        switch (task) {
-            case 'copy':
-                result = [...numbers];
-                break;
-            case 'reverse':
-                result = [...numbers].reverse();
-                break;
-            case 'sort':
-                result = [...numbers].sort((a, b) => a - b);
-                break;
-            case 'shift':
-                result = [numbers[numbers.length - 1], ...numbers.slice(0, -1)];
-                break;
-            default:
-                return NextResponse.json(
-                    { error: 'Invalid task' },
-                    { status: 400 }
-                );
-        }
-
-        // Simulate processing time
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        return NextResponse.json({
-            task,
-            input: numbers,
-            prediction: result,
-            success: true
+        // Call the backend API
+        const response = await fetch(`${BACKEND_URL}/predict`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ input, task }),
         });
 
+        if (!response.ok) {
+            throw new Error(`Backend error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return NextResponse.json(data);
+
     } catch (error) {
-        console.error('Prediction error:', error);
+        console.error('API Error:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }
