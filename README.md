@@ -36,35 +36,41 @@ This is a complete implementation of a Transformer model with both backend (PyTo
 
 ---
 
-## 🏗️ Project Structure
+## 📖 Project Structure
 
 ```
 Transformer/
-├── 📁 transformer-web/           # Next.js web application
-│   ├── src/app/                  # App router components
-│   ├── src/components/           # UI components
-│   ├── package.json              # Frontend dependencies
-│   └── README.md                 # Web app documentation
-├── 📁 tasks/                     # PyTorch model implementations
-│   ├── copy/                     # Copy task model
-│   ├── reverse/                  # Reverse task model
-│   ├── sort/                     # Sort task model
-│   ├── shift/                    # Shift task model
-│   └── train_all.py              # Master training script
-├── 📁 transformer/               # Core Transformer implementation
-│   ├── model.py                  # Transformer model architecture
-│   ├── attention.py              # Multi-head attention mechanism
-│   ├── positional_encoding.py    # Positional encoding
-│   └── utils.py                  # Utility functions
-├── 📁 datasets/                  # Data generation and utilities
-│   ├── sequence_tasks.py         # Task-specific datasets
-│   └── data_utils.py             # Data processing utilities
-├── 📁 scripts/                   # Training and evaluation scripts
-│   ├── train.py                  # Main training script
-│   ├── evaluate.py               # Model evaluation
-│   └── demo.py                   # Interactive demo
-└── README.md                     # This file
+├── app.py                # Flask backend API (main entry)
+├── requirements.txt      # Python dependencies for backend
+├── Dockerfile            # (Optional) Docker config for backend
+├── transformer-web/      # Next.js frontend (React)
+│   ├── src/              # Frontend source code
+│   ├── package.json      # Frontend dependencies
+│   └── ...
+├── tasks/                # Task-specific scripts and models
+├── model_reverse.pth     # Example model file
+├── ...                   # Other backend scripts/utilities
 ```
+
+- **Backend:**
+  - Main API: `app.py` (Flask)
+  - Dependencies: `requirements.txt`
+  - Run locally: `python app.py`
+
+- **Frontend:**
+  - All code in `transformer-web/` (Next.js/React)
+  - Run locally:
+
+    ```bash
+    cd transformer-web
+    npm install
+    npm run dev
+    ```
+
+- **Development Tips:**
+  - The backend and frontend are independent; you can deploy them separately (e.g., Flask on Render, Next.js on Vercel).
+  - Set the frontend's API URL to point to your backend (see `transformer-web/src/app/api/predict/route.ts`).
+  - You can add a `shared/` folder if you want to share code between backend and frontend in the future.
 
 ---
 
