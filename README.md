@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Transformer Playground](images/image.png)
+![Transformer Playground](./images/image.png)
 
 *A complete Transformer implementation with PyTorch models and a beautiful web interface*
 
